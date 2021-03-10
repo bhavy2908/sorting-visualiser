@@ -1,6 +1,7 @@
 import time
-def bubble_sort(data, draw_data, speed):
 
+
+def bubble_sort(data, draw_data, speed):
     for n in range(len(data) - 1):
         check = 1
         store = len(data) - 1 - n

@@ -9,9 +9,8 @@ from counting_sort import *
 
 import random
 
-#Functions
 
-
+# Functions
 def draw_data(current_data, digit=-1, optional_color='black', end=-1):
     canvas.delete('all')
     color = DEFAULT_COLOR
@@ -35,7 +34,11 @@ def draw_data(current_data, digit=-1, optional_color='black', end=-1):
             if i == digit or i == digit + 1:
                 color = optional_color
                 count += 1
-        if (i > end) and (end != -1):
+        if algMenu.get() == 'Bubble Sort':
+            if (i > end) and (end != -1):
+                color = 'orange'
+        if algMenu.get() == 'Selection Sort':
+            if (i <= digit) and (end < len(data)):
                 color = 'orange'
         canvas.create_rectangle(x0, y0, x1, y1, fill=color)
 
@@ -45,23 +48,21 @@ def draw_data(current_data, digit=-1, optional_color='black', end=-1):
 def start():
     print('Sorting...')
     global data
-    if not data: return
+    if not data:
+        return
 
-    if(algMenu.get() == 'Quick Sort'):
-        quick_sort(data, 0, len(data)-1, draw_data, speedScale.get())
+    if algMenu.get() == 'Quick Sort':
+        quick_sort(data, 0, len(data) - 1, draw_data, speedScale.get())
     elif algMenu.get() == 'Bubble Sort':
         bubble_sort(data, draw_data, speedScale.get())
     elif algMenu.get() == 'Insertion Sort':
-        insertionSort(data, draw_data, speedScale.get())
+        insertion_sort(data, draw_data, speedScale.get())
     elif algMenu.get() == 'Selection Sort':
         selection_sort(data, draw_data, speedScale.get())
     elif algMenu.get() == 'Merge Sort':
-        merge_sort(data,0, len(data)-1, draw_data, speedScale.get())
+        merge_sort(data, 0, len(data) - 1, draw_data, speedScale.get())
     elif algMenu.get() == 'Counting Sort':
         count_sort(data, draw_data, speedScale.get())
-
-
-
 
 
 def generate():
@@ -90,9 +91,6 @@ def generate():
     draw_data(data)
 
 
-
-
-
 DEFAULT_COLOR = 'cyan'
 root = Tk()
 root.title('Sorting Visualiser')
@@ -112,7 +110,8 @@ canvas.grid(row=1, column=0)
 # Elements
 Label(UI_frame, text='Algorithm:', bg='white').grid(row=0, column=0, padx=0, pady=0, )
 algMenu = ttk.Combobox(UI_frame, textvariable=selected_alg,
-                       values=['Bubble Sort', 'Merge Sort', 'Quick Sort', 'Selection Sort', 'Insertion Sort', 'Counting Sort'])
+                       values=['Bubble Sort', 'Selection Sort', 'Insertion Sort', 'Merge Sort', 'Quick Sort',
+                               'Counting Sort', 'Radix Sort'])
 algMenu.grid(row=0, column=1, padx=5, pady=5)
 algMenu.current(0)
 

@@ -8,6 +8,7 @@ from merge_sort import *
 from counting_sort import *
 from radix_sort import *
 import random
+import threading
 
 
 # Functions
@@ -73,19 +74,38 @@ def start():
         return
     # These if else statements call the function of the selected algorithm
     if algMenu.get() == 'Quick Sort':
-        quick_sort(data, draw_data, speedScale.get())
+        if __name__ == "__main__": 
+            t = threading.Thread(target=quick_sort, args=(data, draw_data, speedScale.get()), name='thread')
+            t.setDaemon(True)
+            t.start()
+
     elif algMenu.get() == 'Bubble Sort':
-        bubble_sort(data, draw_data, speedScale.get())
+        if __name__ == "__main__": 
+            t = threading.Thread(target=bubble_sort, args=(data, draw_data, speedScale.get()), name='thread')
+            t.setDaemon(True)
+            t.start()
+        
     elif algMenu.get() == 'Insertion Sort':
-        insertion_sort(data, draw_data, speedScale.get())
+        if __name__ == "__main__": 
+            t = threading.Thread(target=insertion_sort, args=(data, draw_data, speedScale.get()), name='thread')
+            t.setDaemon(True)
+            t.start()
+        
     elif algMenu.get() == 'Selection Sort':
-        selection_sort(data, draw_data, speedScale.get())
+        if __name__ == "__main__": 
+            t = threading.Thread(target=selection_sort, args=(data, draw_data, speedScale.get()), name='thread')
+            t.setDaemon(True)
+            t.start()
+        
     # elif algMenu.get() == 'Merge Sort':
     #     merge_sort(data, draw_data, speedScale.get())
     # elif algMenu.get() == 'Counting Sort':
     #     count_sort(data, draw_data, speedScale.get())
     elif algMenu.get() == 'Radix Sort':
-        radix_sort(data, draw_data, speedScale.get())
+        if __name__ == "__main__": 
+            t = threading.Thread(target=radix_sort, args=(data, draw_data, speedScale.get()), name='thread')
+            t.setDaemon(True)
+            t.start()
 
 
 # This function is called when NEW ARRAY button is pressed
@@ -119,8 +139,6 @@ def generate():
     draw_data(data)
 
 # Global declarations
-
-
 DEFAULT_COLOR = 'cyan'
 root = Tk()
 root.title('Sorting Visualiser')
@@ -175,6 +193,6 @@ Button(UI_frame, command=generate, image=na_btn).grid(row=0, column=6, padx=5, p
 
 # Stop Button
 stop_btn = PhotoImage(file=r"image assets/stop.png")
-Button(UI_frame, command=start, image=stop_btn).grid(row=0, column=8, padx=5, pady=5)
+Button(UI_frame, command=root.destroy, image=stop_btn).grid(row=0, column=8, padx=5, pady=5)
 
 root.mainloop()

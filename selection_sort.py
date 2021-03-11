@@ -15,7 +15,3 @@ def selection_sort(data, draw_data, speed):
                 time.sleep(speed)
         data[i], data[min_idx] = data[min_idx], data[i]
     draw_data(data)
-
-
-
-

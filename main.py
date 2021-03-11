@@ -6,11 +6,13 @@ from insertion_sort import *
 from selection_sort import *
 from merge_sort import *
 from counting_sort import *
-
+from radix_sort import *
 import random
 
 
 # Functions
+
+# This function displays the array
 def draw_data(current_data, digit=-1, optional_color='black', end=-1):
     canvas.delete('all')
     color = DEFAULT_COLOR
@@ -41,16 +43,16 @@ def draw_data(current_data, digit=-1, optional_color='black', end=-1):
             if (i <= digit) and (end < len(data)):
                 color = 'orange'
         canvas.create_rectangle(x0, y0, x1, y1, fill=color)
-
     root.update_idletasks()
 
 
+# This function is called when SORT button is pressed
 def start():
     print('Sorting...')
     global data
     if not data:
         return
-
+    # These if else statements call the function of the selected algorithm
     if algMenu.get() == 'Quick Sort':
         quick_sort(data, 0, len(data) - 1, draw_data, speedScale.get())
     elif algMenu.get() == 'Bubble Sort':
@@ -60,18 +62,21 @@ def start():
     elif algMenu.get() == 'Selection Sort':
         selection_sort(data, draw_data, speedScale.get())
     elif algMenu.get() == 'Merge Sort':
-        merge_sort(data, 0, len(data) - 1, draw_data, speedScale.get())
+        merge_sort(data, draw_data, speedScale.get())
     elif algMenu.get() == 'Counting Sort':
         count_sort(data, draw_data, speedScale.get())
+    elif algMenu.get() == 'Radix Sort':
+        radix_sort(data, draw_data, speedScale.get())
 
 
+# This function is called when NEW ARRAY button is pressed
 def generate():
     global data
     print('Algo: ' + selected_alg.get())
     try:
         min_val = int(minEntry.get())
     except EXCEPTION:
-        min_val = 100
+        min_val = 10
     try:
         max_val = int(maxEntry.get())
     except EXCEPTION:
@@ -84,11 +89,17 @@ def generate():
     if min_val > max_val:
         min_val, max_val = max_val, min_val
     if max_val == 0:
-        max_val = 1000
+        max_val = 100
+    if (algMenu.get() == 'Counting Sort') and (max_val>size):
+        max_val = size-1
+    if (algMenu.get() == 'Counting Sort') and (min_val > size):
+        min_val = 0
     data = []
     for _ in range(size):
         data.append(random.randrange(min_val, max_val + 1))
     draw_data(data)
+
+# Global declarations
 
 
 DEFAULT_COLOR = 'cyan'
@@ -96,11 +107,13 @@ root = Tk()
 root.title('Sorting Visualiser')
 root.maxsize(1920, 1080)
 root.config(bg='white')
+
 # Variables
 selected_alg = StringVar()
 data = []
 
-# UserInerface
+# User Interface
+
 # Body
 UI_frame = Frame(root, width=1500, height=200, bg='white')
 UI_frame.grid(row=0, column=0)
@@ -108,6 +121,8 @@ canvas = Canvas(root, width=1500, height=700, bg='black')
 canvas.grid(row=1, column=0)
 
 # Elements
+
+# Dropdown box for algorithms
 Label(UI_frame, text='Algorithm:', bg='white').grid(row=0, column=0, padx=0, pady=0, )
 algMenu = ttk.Combobox(UI_frame, textvariable=selected_alg,
                        values=['Bubble Sort', 'Selection Sort', 'Insertion Sort', 'Merge Sort', 'Quick Sort',
@@ -115,33 +130,33 @@ algMenu = ttk.Combobox(UI_frame, textvariable=selected_alg,
 algMenu.grid(row=0, column=1, padx=5, pady=5)
 algMenu.current(0)
 
-# Speed of sorting adjuster
+# Delay slider
 speedScale = Scale(UI_frame, from_=0.01, to=2.0, length=200, digits=2, resolution=0.02, orient=HORIZONTAL,
                    label='Delay')
 speedScale.grid(row=0, column=5, padx=5, pady=5)
 
 # Sort Button
-sortbtn = PhotoImage(file=r"image assets/sortbtn.png")
-Button(UI_frame, command=start, image=sortbtn).grid(row=0, column=7, padx=5, pady=5, sticky=E)
+sort_btn = PhotoImage(file=r"image assets/sort.png")
+Button(UI_frame, command=start, image=sort_btn).grid(row=0, column=7, padx=5, pady=5, sticky=E)
 
-# Size adjuster
+# Size of array slider
 sizeEntry = Scale(UI_frame, from_=3, to=100, length=200, resolution=1, orient=HORIZONTAL, label='Size')
 sizeEntry.grid(row=0, column=2, padx=5, pady=5)
 
-# Minimum Value
+# Minimum Value slider
 minEntry = Scale(UI_frame, from_=0, to=1000, length=200, resolution=1, orient=HORIZONTAL, label='Min Value')
 minEntry.grid(row=0, column=3, padx=5, pady=5)
 
-# Maximum Value
+# Maximum Value slider
 maxEntry = Scale(UI_frame, from_=0, to=1000, length=200, resolution=1, orient=HORIZONTAL, label='Max Value')
 maxEntry.grid(row=0, column=4, padx=5, pady=5)
 
 # New Array Button
-nabtn = PhotoImage(file=r"image assets/nabtn.png")
-Button(UI_frame, command=generate, image=nabtn).grid(row=0, column=6, padx=5, pady=5)
+na_btn = PhotoImage(file=r"image assets/newarray.png")
+Button(UI_frame, command=generate, image=na_btn).grid(row=0, column=6, padx=5, pady=5)
 
 # Stop Button
-stopbtn = PhotoImage(file=r"image assets/stopbtn.png")
-Button(UI_frame, command=start, image=stopbtn).grid(row=0, column=8, padx=5, pady=5)
+stop_btn = PhotoImage(file=r"image assets/stop.png")
+Button(UI_frame, command=start, image=stop_btn).grid(row=0, column=8, padx=5, pady=5)
 
 root.mainloop()

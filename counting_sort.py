@@ -1,25 +1,23 @@
 import time
-def count_sort(data, draw_data, speed):
-	max_element = int(max(data))
-	min_element = int(min(data))
-	range_of_elements = max_element - min_element + 1
-	count_data = [0 for _ in range(range_of_elements)]
-	output_data = [0 for _ in range(len(data))]
-	for i in range(0, len(data)):
-		count_data[data[i]-min_element] += 1
-	for i in range(1, len(count_data)):
-		count_data[i] += count_data[i-1]
-	for i in range(len(data)-1, -1, -1):
-		output_data[count_data[data[i] - min_element] - 1] = data[i]
-		count_data[data[i] - min_element] -= 1
-	for i in range(0, len(data)):
-		data[i] = output_data[i]
-	draw_data(data)
 
 
-
-
-
-
-
-
+def count_sort(arr, drawdata, speed):
+	n = len(arr)
+	arr1 = [0] * n
+	x = [0] * (n + 1)
+	for i in range(0, n):
+		x[arr[i]] += 1
+		drawdata(arr, optional_color='red', digit=i)
+		time.sleep(speed)
+	for i in range(1, n):
+		x[i] += x[i - 1]
+	i = n - 1
+	while i >= 0:
+		arr1[x[arr[i]] - 1] = arr[i]
+		x[arr[i]] -= 1
+		i -= 1
+		drawdata(arr, optional_color='white', digit=i)
+		time.sleep(speed)
+	for i in range(0, n):
+		arr[i] = arr1[i]
+	drawdata(arr)

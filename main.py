@@ -13,7 +13,7 @@ import random
 # Functions
 
 # This function displays the array
-def draw_data(current_data, digit=-1, optional_color='cyan', end=-1, digit2=999):
+def draw_data(current_data, digit=-1, optional_color='cyan', end=-1, digit2=999, var1 = -999, var2= -999):
     canvas.delete('all')
     color = DEFAULT_COLOR
     count = 0
@@ -53,6 +53,13 @@ def draw_data(current_data, digit=-1, optional_color='cyan', end=-1, digit2=999)
                 color = 'orange'
             else:
                 color = DEFAULT_COLOR
+        if algMenu.get() == "Quick Sort":
+            if i==digit or i== digit2:
+                color = optional_color
+            elif var1 <= i <= var2:
+                color = 'orange'
+            else:
+                color = DEFAULT_COLOR
 
         canvas.create_rectangle(x0, y0, x1, y1, fill=color)
     root.update_idletasks()
@@ -66,17 +73,17 @@ def start():
         return
     # These if else statements call the function of the selected algorithm
     if algMenu.get() == 'Quick Sort':
-        quick_sort(data, 0, len(data) - 1, draw_data, speedScale.get())
+        quick_sort(data, draw_data, speedScale.get())
     elif algMenu.get() == 'Bubble Sort':
         bubble_sort(data, draw_data, speedScale.get())
     elif algMenu.get() == 'Insertion Sort':
         insertion_sort(data, draw_data, speedScale.get())
     elif algMenu.get() == 'Selection Sort':
         selection_sort(data, draw_data, speedScale.get())
-    elif algMenu.get() == 'Merge Sort':
-        merge_sort(data, draw_data, speedScale.get())
-    elif algMenu.get() == 'Counting Sort':
-        count_sort(data, draw_data, speedScale.get())
+    # elif algMenu.get() == 'Merge Sort':
+    #     merge_sort(data, draw_data, speedScale.get())
+    # elif algMenu.get() == 'Counting Sort':
+    #     count_sort(data, draw_data, speedScale.get())
     elif algMenu.get() == 'Radix Sort':
         radix_sort(data, draw_data, speedScale.get())
 
@@ -137,8 +144,7 @@ canvas.grid(row=1, column=0)
 # Dropdown box for algorithms
 Label(UI_frame, text='Algorithm:', bg='white').grid(row=0, column=0, padx=0, pady=0, )
 algMenu = ttk.Combobox(UI_frame, textvariable=selected_alg,
-                       values=['Bubble Sort', 'Selection Sort', 'Insertion Sort', 'Merge Sort', 'Quick Sort',
-                               'Counting Sort', 'Radix Sort'])
+                       values=['Bubble Sort', 'Selection Sort', 'Insertion Sort', 'Quick Sort'])
 algMenu.grid(row=0, column=1, padx=5, pady=5)
 algMenu.current(0)
 

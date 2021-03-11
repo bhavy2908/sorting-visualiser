@@ -13,7 +13,7 @@ import random
 # Functions
 
 # This function displays the array
-def draw_data(current_data, digit=-1, optional_color='cyan', end=-1, digit2=0):
+def draw_data(current_data, digit=-1, optional_color='cyan', end=-1, digit2=999):
     canvas.delete('all')
     color = DEFAULT_COLOR
     count = 0
@@ -46,6 +46,14 @@ def draw_data(current_data, digit=-1, optional_color='cyan', end=-1, digit2=0):
                 color = optional_color
             else:
                 color = DEFAULT_COLOR
+        if algMenu.get() == 'Insertion Sort':
+            if i==digit or i==digit2:
+                color = optional_color
+            elif i <= end:
+                color = 'orange'
+            else:
+                color = DEFAULT_COLOR
+
         canvas.create_rectangle(x0, y0, x1, y1, fill=color)
     root.update_idletasks()
 

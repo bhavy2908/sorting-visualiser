@@ -8,13 +8,12 @@ from merge_sort import *
 from counting_sort import *
 from radix_sort import *
 import random
-import threading
 
 
 # Functions
 
 # This function displays the array
-def draw_data(current_data, digit=-1, optional_color='cyan', end=-1, digit2=999, var1 = -999, var2= -999):
+def draw_data(current_data, digit=-1, optional_color='cyan', end=-1, digit2=999, var1=-999, var2=-999):
     canvas.delete('all')
     color = DEFAULT_COLOR
     count = 0
@@ -48,14 +47,14 @@ def draw_data(current_data, digit=-1, optional_color='cyan', end=-1, digit2=999,
             else:
                 color = DEFAULT_COLOR
         if algMenu.get() == 'Insertion Sort':
-            if i==digit or i==digit2:
+            if i == digit or i == digit2:
                 color = optional_color
             elif i <= end:
                 color = 'orange'
             else:
                 color = DEFAULT_COLOR
         if algMenu.get() == "Quick Sort":
-            if i==digit or i== digit2:
+            if i == digit or i == digit2:
                 color = optional_color
             elif var1 <= i <= var2:
                 color = 'orange'
@@ -72,40 +71,22 @@ def start():
     global data
     if not data:
         return
+
     # These if else statements call the function of the selected algorithm
     if algMenu.get() == 'Quick Sort':
-        if __name__ == "__main__": 
-            t = threading.Thread(target=quick_sort, args=(data, draw_data, speedScale.get()), name='thread')
-            t.setDaemon(True)
-            t.start()
-
+        quick_sort(data, draw_data, speedScale.get())
     elif algMenu.get() == 'Bubble Sort':
-        if __name__ == "__main__": 
-            t = threading.Thread(target=bubble_sort, args=(data, draw_data, speedScale.get()), name='thread')
-            t.setDaemon(True)
-            t.start()
-        
+        bubble_sort(data, draw_data, speedScale.get())
     elif algMenu.get() == 'Insertion Sort':
-        if __name__ == "__main__": 
-            t = threading.Thread(target=insertion_sort, args=(data, draw_data, speedScale.get()), name='thread')
-            t.setDaemon(True)
-            t.start()
-        
+        insertion_sort(data, draw_data, speedScale.get())
     elif algMenu.get() == 'Selection Sort':
-        if __name__ == "__main__": 
-            t = threading.Thread(target=selection_sort, args=(data, draw_data, speedScale.get()), name='thread')
-            t.setDaemon(True)
-            t.start()
-        
-    # elif algMenu.get() == 'Merge Sort':
-    #     merge_sort(data, draw_data, speedScale.get())
-    # elif algMenu.get() == 'Counting Sort':
-    #     count_sort(data, draw_data, speedScale.get())
+        selection_sort(data, draw_data, speedScale.get())
+    elif algMenu.get() == 'Merge Sort':
+        merge_sort(data, draw_data, speedScale.get())
+    elif algMenu.get() == 'Counting Sort':
+        count_sort(data, draw_data, speedScale.get())
     elif algMenu.get() == 'Radix Sort':
-        if __name__ == "__main__": 
-            t = threading.Thread(target=radix_sort, args=(data, draw_data, speedScale.get()), name='thread')
-            t.setDaemon(True)
-            t.start()
+        radix_sort(data, draw_data, speedScale.get())
 
 
 # This function is called when NEW ARRAY button is pressed
@@ -129,14 +110,15 @@ def generate():
         min_val, max_val = max_val, min_val
     if max_val == 0:
         max_val = 100
-    if (algMenu.get() == 'Counting Sort') and (max_val>size):
-        max_val = size-1
+    if (algMenu.get() == 'Counting Sort') and (max_val > size):
+        max_val = size - 1
     if (algMenu.get() == 'Counting Sort') and (min_val > size):
         min_val = 0
     data = []
     for _ in range(size):
         data.append(random.randrange(min_val, max_val + 1))
     draw_data(data)
+
 
 # Global declarations
 DEFAULT_COLOR = 'cyan'
@@ -191,8 +173,8 @@ maxEntry.grid(row=0, column=4, padx=5, pady=5)
 na_btn = PhotoImage(file=r"image assets/newarray.png")
 Button(UI_frame, command=generate, image=na_btn).grid(row=0, column=6, padx=5, pady=5)
 
-# Stop Button
-stop_btn = PhotoImage(file=r"image assets/stop.png")
-Button(UI_frame, command=root.destroy, image=stop_btn).grid(row=0, column=8, padx=5, pady=5)
+# Exit Button
+exit_btn = PhotoImage(file=r"image assets/exit.png")
+Button(UI_frame, command=root.destroy, image=exit_btn).grid(row=0, column=8, padx=5, pady=5)
 
 root.mainloop()

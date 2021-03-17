@@ -144,7 +144,8 @@ canvas.grid(row=1, column=0)
 # Dropdown box for algorithms
 Label(UI_frame, text='Algorithm:', bg='white').grid(row=0, column=0, padx=0, pady=0, )
 algMenu = ttk.Combobox(UI_frame, textvariable=selected_alg,
-                       values=['Bubble Sort', 'Selection Sort', 'Insertion Sort', 'Quick Sort'])
+                       values=['Bubble Sort', 'Selection Sort', 'Insertion Sort', 'Quick Sort', 'Merge Sort',
+                               'Counting Sort', 'Radix Sort'])
 algMenu.grid(row=0, column=1, padx=5, pady=5)
 algMenu.current(0)
 

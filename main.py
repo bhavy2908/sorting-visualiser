@@ -38,10 +38,10 @@ def draw_data(current_data, digit=-1, optional_color='cyan', end=-1, digit2=999,
                 count += 1
         if algMenu.get() == 'Bubble Sort':
             if (i > end) and (end != -1):
-                color = 'orange'
+                color = '#FF6A00'
         if algMenu.get() == 'Selection Sort':
             if i <= end:
-                color = 'orange'
+                color = '#FF6A00'
             elif i > end and (i == digit or i == digit2):
                 color = optional_color
             else:
@@ -50,14 +50,14 @@ def draw_data(current_data, digit=-1, optional_color='cyan', end=-1, digit2=999,
             if i == digit or i == digit2:
                 color = optional_color
             elif i <= end:
-                color = 'orange'
+                color = '#FF6A00'
             else:
                 color = DEFAULT_COLOR
         if algMenu.get() == "Quick Sort":
             if i == digit or i == digit2:
                 color = optional_color
             elif var1 <= i <= var2:
-                color = 'orange'
+                color = '#FF6A00'
             else:
                 color = DEFAULT_COLOR
 
@@ -121,7 +121,7 @@ def generate():
 
 
 # Global declarations
-DEFAULT_COLOR = 'cyan'
+DEFAULT_COLOR = '#00FDFD'
 root = Tk()
 root.title('Sorting Visualiser')
 root.maxsize(1920, 1080)
@@ -142,7 +142,7 @@ canvas.grid(row=1, column=0)
 # Elements
 
 # Dropdown box for algorithms
-Label(UI_frame, text='Algorithm:', bg='white').grid(row=0, column=0, padx=0, pady=0, )
+Label(UI_frame, text='Algorithm:', bg='white').grid(row=0, column=0, padx=0, pady=0)
 algMenu = ttk.Combobox(UI_frame, textvariable=selected_alg,
                        values=['Bubble Sort', 'Selection Sort', 'Insertion Sort', 'Quick Sort', 'Merge Sort',
                                'Counting Sort', 'Radix Sort'])
@@ -151,7 +151,7 @@ algMenu.current(0)
 
 # Delay slider
 speedScale = Scale(UI_frame, from_=0.01, to=2.0, length=200, digits=2, resolution=0.02, orient=HORIZONTAL,
-                   label='Delay')
+                   label='Delay', activebackground='#00FDFD', troughcolor='black')
 speedScale.grid(row=0, column=5, padx=5, pady=5)
 
 # Sort Button
@@ -159,15 +159,18 @@ sort_btn = PhotoImage(file=r"image assets/sort.png")
 Button(UI_frame, command=start, image=sort_btn).grid(row=0, column=7, padx=5, pady=5, sticky=E)
 
 # Size of array slider
-sizeEntry = Scale(UI_frame, from_=3, to=100, length=200, resolution=1, orient=HORIZONTAL, label='Size')
+sizeEntry = Scale(UI_frame, from_=3, to=100, length=200, resolution=1, orient=HORIZONTAL,
+                  label='Size', activebackground='#00FDFD', troughcolor='black')
 sizeEntry.grid(row=0, column=2, padx=5, pady=5)
 
 # Minimum Value slider
-minEntry = Scale(UI_frame, from_=0, to=1000, length=200, resolution=1, orient=HORIZONTAL, label='Min Value')
+minEntry = Scale(UI_frame, from_=0, to=1000, length=200, resolution=1, orient=HORIZONTAL,
+                 label='Min Value', activebackground='#00FDFD', troughcolor='black')
 minEntry.grid(row=0, column=3, padx=5, pady=5)
 
 # Maximum Value slider
-maxEntry = Scale(UI_frame, from_=0, to=1000, length=200, resolution=1, orient=HORIZONTAL, label='Max Value')
+maxEntry = Scale(UI_frame, from_=0, to=1000, length=200, resolution=1, orient=HORIZONTAL,
+                 label='Max Value', activebackground='#00FDFD', troughcolor='black')
 maxEntry.grid(row=0, column=4, padx=5, pady=5)
 
 # New Array Button

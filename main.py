@@ -58,8 +58,8 @@ def draw_data(current_data, digit=-1, optional_color='cyan', end=-1, digit2=999,
                 color = optional_color
             elif var1 <= i <= var2:
                 color = '#FF6A00'
-            else:
-                color = DEFAULT_COLOR
+        else:
+            color = DEFAULT_COLOR
 
         canvas.create_rectangle(x0, y0, x1, y1, fill=color)
     root.update_idletasks()
@@ -82,7 +82,7 @@ def start():
     elif algMenu.get() == 'Selection Sort':
         selection_sort(data, draw_data, speedScale.get())
     elif algMenu.get() == 'Merge Sort':
-        merge_sort(data, draw_data, speedScale.get())
+        merge_sort(data, 0, len(data)-1, draw_data, speedScale.get())
     elif algMenu.get() == 'Counting Sort':
         count_sort(data, draw_data, speedScale.get())
     elif algMenu.get() == 'Radix Sort':

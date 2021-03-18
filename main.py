@@ -58,8 +58,8 @@ def draw_data(current_data, digit=-1, optional_color='cyan', end=-1, digit2=999,
                 color = optional_color
             elif var1 <= i <= var2:
                 color = '#FF6A00'
-        else:
-            color = DEFAULT_COLOR
+            else:
+                color = DEFAULT_COLOR
 
         canvas.create_rectangle(x0, y0, x1, y1, fill=color)
     root.update_idletasks()

@@ -6,7 +6,6 @@ from insertion_sort import *
 from selection_sort import *
 from merge_sort import *
 from counting_sort import *
-from radix_sort import *
 import random
 
 
@@ -85,8 +84,6 @@ def start():
         merge_sort(data, 0, len(data)-1, draw_data, speedScale.get())
     elif algMenu.get() == 'Counting Sort':
         count_sort(data, draw_data, speedScale.get())
-    elif algMenu.get() == 'Radix Sort':
-        radix_sort(data, draw_data, speedScale.get())
 
 
 # This function is called when NEW ARRAY button is pressed
@@ -142,10 +139,11 @@ canvas.grid(row=1, column=0)
 # Elements
 
 # Dropdown box for algorithms
-Label(UI_frame, text='Algorithm:', bg='white').grid(row=0, column=0, padx=0, pady=0)
+Label(UI_frame, text='Algorithm:', bg='white').grid(
+    row=0, column=0, padx=0, pady=0)
 algMenu = ttk.Combobox(UI_frame, textvariable=selected_alg,
                        values=['Bubble Sort', 'Selection Sort', 'Insertion Sort', 'Quick Sort', 'Merge Sort',
-                               'Counting Sort', 'Radix Sort'])
+                               'Counting Sort'])
 algMenu.grid(row=0, column=1, padx=5, pady=5)
 algMenu.current(0)
 
@@ -156,7 +154,8 @@ speedScale.grid(row=0, column=5, padx=5, pady=5)
 
 # Sort Button
 sort_btn = PhotoImage(file=r"image assets/sort.png")
-Button(UI_frame, command=start, image=sort_btn).grid(row=0, column=7, padx=5, pady=5, sticky=E)
+Button(UI_frame, command=start, image=sort_btn).grid(
+    row=0, column=7, padx=5, pady=5, sticky=E)
 
 # Size of array slider
 sizeEntry = Scale(UI_frame, from_=3, to=100, length=200, resolution=1, orient=HORIZONTAL,
@@ -175,10 +174,12 @@ maxEntry.grid(row=0, column=4, padx=5, pady=5)
 
 # New Array Button
 na_btn = PhotoImage(file=r"image assets/newarray.png")
-Button(UI_frame, command=generate, image=na_btn).grid(row=0, column=6, padx=5, pady=5)
+Button(UI_frame, command=generate, image=na_btn).grid(
+    row=0, column=6, padx=5, pady=5)
 
 # Exit Button
 exit_btn = PhotoImage(file=r"image assets/exit.png")
-Button(UI_frame, command=root.destroy, image=exit_btn).grid(row=0, column=8, padx=5, pady=5)
+Button(UI_frame, command=root.destroy, image=exit_btn).grid(
+    row=0, column=8, padx=5, pady=5)
 
 root.mainloop()

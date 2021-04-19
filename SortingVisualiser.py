@@ -9,6 +9,7 @@ from counting_sort import *
 import random
 
 
+
 # Functions
 
 # This function displays the array
@@ -119,7 +120,7 @@ def generate():
 
 # Global declarations
 DEFAULT_COLOR = '#00FDFD'
-root = Tk()
+root = Tk ()
 root.title('Sorting Visualiser')
 root.maxsize(1920, 1080)
 root.config(bg='white')
